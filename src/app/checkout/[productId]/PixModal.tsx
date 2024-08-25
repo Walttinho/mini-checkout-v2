@@ -50,10 +50,11 @@ const PixModal: React.FC<PixModalProps> = ({
         <button
           onClick={handleClose}
           className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+          aria-label="Close"
         >
-          <CircleXIcon/>
+          <CircleXIcon />
         </button>
-        <h2 className="text-lg font-bold mb-4">Pagar via pix</h2>
+        <h2 className="text-lg font-bold mb-4">Pay via Pix</h2>
         <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 mb-4 flex justify-center items-center">
           {qrcode ? (
             <Image
@@ -66,7 +67,7 @@ const PixModal: React.FC<PixModalProps> = ({
             <p className="text-gray-500">QR CODE</p>
           )}
         </div>
-        <p className="text-gray-500 text-sm mb-2">Pix copia e cola</p>
+        <p className="text-gray-500 text-sm mb-2">Pix copy and paste</p>
         <div className="flex items-center border-dashed border-2 border-gray-300 rounded-lg p-2 mb-4">
           <input
             type="text"
@@ -77,9 +78,9 @@ const PixModal: React.FC<PixModalProps> = ({
         </div>
         <button
           onClick={handleCopy}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full flex justify-center items-center"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full flex justify-center items-center"
         >
-          <CopyIcon className="mr-2" /> Copiar
+          <CopyIcon className="mr-2" /> Copy
         </button>
       </div>
     </div>

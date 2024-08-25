@@ -7,6 +7,8 @@ import lock from "../../../../public/images/lock.png";
 import shield from "../../../../public/images/shield.png";
 import pix from "../../../../public/images/pix.png";
 import axios from "axios";
+import InputField from "@/app/components/InputField";
+import SectionHeader from "@/app/components/SectionHeader";
 
 export default function CheckoutPage({
   params,
@@ -51,144 +53,89 @@ export default function CheckoutPage({
   };
   
   return (
-    <div className="flex justify-between">
-      <div className="w-1/2">
+    <div className="flex flex-col md:flex-row justify-between gap-8 p-6">
+      <div className="w-full md:w-1/2">
         <div className="border rounded-lg p-6">
-          <div className="flex items-center">
-            <div className="bg-blue-500 rounded-full text-white font-bold text-lg px-3 py-2 mr-4">
-              1
-            </div>
+          <SectionHeader
+            step={1}
+            title="Registration Data"
+            description="Complete your registration details"
+          />
 
-            <div>
-              <h2 className="text-gray-700 font-bold text-lg">
-                Dados cadastrais
-              </h2>
-
-              <p className="text-gray-500 text-sm mt-1">
-                Complete os dados de cadastro
-              </p>
-            </div>
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Nome completo
-            </label>
-            <input
-              type="text"
-              id="name"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="Seu nome completo"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              E-mail
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="Seu e-mail valido"
-              value={customerEmail}
-              onChange={(e) => setCustomerEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="cpf"
-              className="block text-sm font-medium text-gray-700"
-            >
-              CPF
-            </label>
-            <input
-              type="text"
-              id="cpf"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="00 0000 0000"
-              value={customerCPF}
-              onChange={(e) => setCustomerCPF(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="phone"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Telefone
-            </label>
-            <input
-              type="text"
-              id="phone"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="00 0000 0000"
-              value={customerPhone}
-              onChange={(e) => setCustomerPhone(e.target.value)}
-            />
-          </div>
+          <InputField
+            id="name"
+            label="Full Name"
+            placeholder="Enter your full name"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+          />
+          <InputField
+            id="email"
+            label="Email"
+            placeholder="email@email.com"
+            value={customerEmail}
+            onChange={(e) => setCustomerEmail(e.target.value)}
+          />
+          <InputField
+            id="cpf"
+            label="CPF"
+            placeholder="000.000.000-00"
+            value={customerCPF}
+            onChange={(e) => setCustomerCPF(e.target.value)}
+          />
+          <InputField
+            id="phone"
+            label="Phone"
+            placeholder="00 00000-0000"
+            value={customerPhone}
+            onChange={(e) => setCustomerPhone(e.target.value)}
+          />
         </div>
       </div>
-      <div className="w-1/2">
+
+      <div className="w-full md:w-1/2">
         <div className="border rounded-lg p-6">
-          <div className="flex items-center">
-            <div className="bg-blue-500 rounded-full text-white font-bold text-lg px-3 py-2 mr-4">
-              2
-            </div>
-            <div>
-              <h2 className="text-gray-700 font-bold text-lg">
-                Dados de pagamento
-              </h2>
-              <p className="text-gray-500 text-sm mt-1">
-                Complete os dados de pagamento
-              </p>
-            </div>
-          </div>
+          <SectionHeader
+            step={2}
+            title="Payment Details"
+            description="Complete your payment details"
+          />
+
           <div className="mb-4">
-            <h3 className="text-xl font-medium mb-2">Preço</h3>
-            <p className="text-gray-700 text-2xl">R$ 19,90</p>
+            <h3 className="text-xl font-medium mb-2">Price</h3>
+            <p className="text-gray-700 text-2xl">$19.90</p>
           </div>
           <div className="mb-4 flex items-center">
             <Image
               src={pix}
-              alt="Compra segura"
+              alt="Pix payment"
               width={25}
               height={25}
               className="mr-2"
             />
             <span className="text-gray-600 text-sm">Pix</span>
           </div>
-          <div className="mb-4">
-            <button
-              type="button"
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={handleCheckout}
-            >
-              Comprar agora
-            </button>
-          </div>
-          <p className="text-gray-600 text-sm mb-4">
-            Ambiente criptografado e 100% seguro.
+          <button
+            type="button"
+            className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
+            onClick={handleCheckout}
+          >
+            Buy Now
+          </button>
+          <p className="text-gray-600 text-sm mt-4">
+            100% secure and encrypted environment.
           </p>
           <div className="flex items-center">
             <Image
               src={lock}
-              alt="Compra segura"
+              alt="Secure purchase"
               width={147}
               height={64}
               className="mr-2"
             />
-          </div>
-          <div className="flex items-center mt-2">
             <Image
               src={shield}
-              alt="Dados pessoais protegidos"
+              alt="Data protected"
               width={147}
               height={64}
               className="mr-2"
@@ -200,8 +147,8 @@ export default function CheckoutPage({
       <PixModal
         isOpen={isPixModalOpen}
         onClose={() => setIsPixModalOpen(false)}
-        qrcode={qrcode} // Use the qrcode state here
-        paymentLink={paymentLink}        
+        qrcode={qrcode}
+        paymentLink={paymentLink}
         productId={params.productId}
         orderId={orderId}
         paymentId={paymentId}

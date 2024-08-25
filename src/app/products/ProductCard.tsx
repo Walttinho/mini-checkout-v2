@@ -23,7 +23,7 @@ export default function ProductCard({
   onEdit,
 }: ItemProps) {
   return (
-    <div className="bg-white rounded-md shadow-xl p-4">
+    <div className="bg-white rounded-lg shadow-lg p-4">
       <Image
         src={picture}
         alt={description}
@@ -32,29 +32,27 @@ export default function ProductCard({
         className="w-full h-48 rounded-t-lg object-cover border"
       />
       <div className="p-4">
-        <h2 className="text-xl font-bold mt-4">{name}</h2>
-        <p className="text-gray-600">{description}</p>
-        <div className="flex justify-between mt-4">
-          <div className="flex flex-col items-center p-1 bg-orange-500 hover:bg-orange-700 text-white rounded">
-            <Link href={link} legacyBehavior>
-              <a className=" font-bold py-2 px-2 rounded">Purchase</a>
-            </Link>
-            <span className="text-lg font-bold">${price}</span>
-          </div>
+        <h2 className="text-2xl font-bold text-gray-800">{name}</h2>
+        <p className="text-gray-600 mt-2">{description}</p>
+        <div className="flex justify-between items-center mt-4">
+          <Link href={link} legacyBehavior>
+            <a className="flex items-center space-x-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">
+              Purchase
+              <span className="text-lg">${price}</span>
+            </a>
+          </Link>
           <div className="flex space-x-2">
             <button
-              className="px-4 py-2 mt-2 rounded-md bg-yellow-500 text-white hover:bg-yellow-600"
+              className="flex items-center space-x-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded"
               onClick={onEdit}
             >
-              <FilePenLine size={16} className="mr-2" />
-              Edit
+              <FilePenLine size={16} /> Edit
             </button>
             <button
-              className="px-4 py-2 mt-2 rounded-md bg-red-500 text-white hover:bg-red-600"
+              className="flex items-center space-x-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
               onClick={onDelete}
             >
-              <Trash2 size={16} className="mr-2" />
-              Delete
+              <Trash2 size={16} /> Delete
             </button>
           </div>
         </div>

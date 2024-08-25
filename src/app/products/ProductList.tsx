@@ -59,34 +59,30 @@ export default function ProductList() {
     }
   };
 
+  const handleEdit = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
   return (
     <div>
       {isLoading ? (
-        // Display a loading spinner while products are being fetched
-
         <div className="flex justify-center mt-20">
-          <div
-            className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
-            role="status"
-          >
-            <span className="sr-only">Loading...</span>
-          </div>
+          <div className="animate-spin rounded-full h-48 w-48 border-t-4 border-blue-600"></div>
         </div>
       ) : (
         <>
-          <div className="flex items-center space-x-2">
-            <h1 className="text-3xl font-bold">Produtos</h1>
+          <div className="flex items-center space-x-2 mb-4">
+            <h1 className="text-3xl font-bold">Products</h1>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-4 py-4 bg-green-500 text-white rounded-xl flex items-center space-x-2"
+              className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-xl"
             >
               <FilePlus2 />
-
               <span>New Product</span>
             </button>
           </div>
-
-          <div className="mt-4 grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -96,39 +92,23 @@ export default function ProductList() {
                 price={product.price}
                 link={`/checkout/${product.id}`}
                 onDelete={() => handleDelete(product.id)}
-                onEdit={() => {
-                  setSelectedProduct(product);
-
-                  setIsModalOpen(true);
-                }}
+                onEdit={() => {handleEdit(product)}}
+                
               />
             ))}
           </div>
         </>
       )}
-
       <ProductModal
         product={selectedProduct}
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
-
           setSelectedProduct(null);
         }}
         onSubmit={() => {
           setIsModalOpen(false);
-
           setSelectedProduct(null);
-
-          // Re-fetch products after submit
-
-          const fetchProducts = async () => {
-            const { data } = await axios.get("/api/products");
-
-            setProducts(data);
-          };
-
-          fetchProducts();
         }}
       />
     </div>

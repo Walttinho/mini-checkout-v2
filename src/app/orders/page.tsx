@@ -21,9 +21,9 @@ const OrdersTable = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch orders from API
+    
     axios
-      .get("/api/orders") // Replace with your actual API endpoint
+      .get("/api/orders") 
       .then((response) => {
         setOrders(response.data);
         setLoading(false);
@@ -35,136 +35,56 @@ const OrdersTable = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex justify-center mt-20">
+        <div className="animate-spin rounded-full h-48 w-48 border-t-4 border-blue-600"></div>
+      </div>
+    );
   }
 
   if (error) {
     return <p>{error}</p>;
   }
-    
-    console.log("orders",orders)
+
+  console.log("orders", orders);
 
   return (
-    <div style={{ padding: "20px", maxWidth: "1000px", margin: "0 auto" }}>
-      <h1>Vendas</h1>
-      <div
-        style={{
-          border: "1px solid #ccc",
-          borderRadius: "8px",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            padding: "10px",
-            backgroundColor: "#f5f5f5",
-            borderBottom: "1px solid #ccc",
-          }}
-        >
-          <h2>Pedidos</h2>
+    <div className="container mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">Sales</h1>
+      <div className="border border-gray-300 rounded-lg overflow-hidden">
+        <div className="bg-gray-100 p-4 border-b border-gray-300">
+          <h2 className="text-lg font-semibold">Orders</h2>
         </div>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <table className="w-full border-collapse">
           <thead>
             <tr>
-              <th
-                style={{
-                  padding: "8px",
-                  borderBottom: "1px solid #ccc",
-                  textAlign: "left",
-                }}
-              >
-                Produto
-              </th>
-              <th
-                style={{
-                  padding: "8px",
-                  borderBottom: "1px solid #ccc",
-                  textAlign: "left",
-                }}
-              >
-                Cliente
-              </th>
-              <th
-                style={{
-                  padding: "8px",
-                  borderBottom: "1px solid #ccc",
-                  textAlign: "left",
-                }}
-              >
-                Telefone
-              </th>
-              <th
-                style={{
-                  padding: "8px",
-                  borderBottom: "1px solid #ccc",
-                  textAlign: "left",
-                }}
-              >
-                CPF
-              </th>
-              <th
-                style={{
-                  padding: "8px",
-                  borderBottom: "1px solid #ccc",
-                  textAlign: "left",
-                }}
-              >
-                E-mail
-              </th>
-              <th
-                style={{
-                  padding: "8px",
-                  borderBottom: "1px solid #ccc",
-                  textAlign: "left",
-                }}
-              >
-                Status
-              </th>
-              <th
-                style={{
-                  padding: "8px",
-                  borderBottom: "1px solid #ccc",
-                  textAlign: "left",
-                }}
-              >
-                Método de Pagamento
-              </th>
-              <th
-                style={{
-                  padding: "8px",
-                  borderBottom: "1px solid #ccc",
-                  textAlign: "left",
-                }}
-              >
-                Data
-              </th>
+              {[
+                "Product",
+                "Customer",
+                "Phone",
+                "CPF",
+                "Email",
+                "Status",
+                "Payment Method",
+                "Date",
+              ].map((header) => (
+                <th key={header} className="p-4 border-b text-left">
+                  {header}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
             {orders.map((order) => (
-              <tr key={order.id}>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
-                  {order.name}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
-                  {order.customerName}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
-                  {order.customerPhone}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
-                  {order.customerCPF}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
-                  {order.customerEmail}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
-                  {order.status}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
-                  {order.paymentMethod}
-                </td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
+              <tr key={order.id} className="even:bg-gray-50">
+                <td className="p-4 border-b break-words">{order.productId}</td>
+                <td className="p-4 border-b">{order.customerName}</td>
+                <td className="p-4 border-b">{order.customerPhone}</td>
+                <td className="p-4 border-b">{order.customerCPF}</td>
+                <td className="p-4 border-b">{order.customerEmail}</td>
+                <td className="p-4 border-b">{order.status}</td>
+                <td className="p-4 border-b">{order.paymentMethod}</td>
+                <td className="p-4 border-b">
                   {new Date(order.createdAt).toLocaleDateString()}
                 </td>
               </tr>

@@ -13,15 +13,16 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="bg-white shadow-xl fixed top-0 left-1/2 transform -translate-x-1/2 w-full z-10">
-        <div className="container mx-auto flex items-center p-4">
+      <header className="bg-white shadow-lg fixed top-0 left-1/2 transform -translate-x-1/2 w-full z-10">
+        <div className="container mx-auto flex items-center justify-between p-4">
           <button
             onClick={toggleDrawer}
-            className="text-gray-500 focus:outline-none"
+            className="text-gray-600 hover:text-gray-900 focus:outline-none"
+            aria-label="Toggle menu"
           >
             <Menu className="w-8 h-8" />
           </button>
-          <Image src={logoIcon} alt="TELMEX logo" width={150} height={50} />
+          <Image src={logoIcon} alt="Company logo" width={150} height={50} />
         </div>
       </header>
 
@@ -41,7 +42,7 @@ export default function Navbar() {
         <div className="p-4 text-center">
           <Image
             src={logoIcon}
-            alt="TELMEX logo"
+            alt="Company logo"
             width={155}
             height={50}
             className="mx-auto"
@@ -49,15 +50,15 @@ export default function Navbar() {
           <div className="mt-8">
             <a
               href="/products"
-              className="block mb-4 py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
+              className="block mb-4 py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-300"
             >
-              Produtos
+              Products
             </a>
             <a
               href="/orders"
-              className="block py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
+              className="block py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-300"
             >
-              Vendas
+              Orders
             </a>
           </div>
         </div>

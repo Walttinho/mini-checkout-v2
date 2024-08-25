@@ -124,7 +124,7 @@ export default function ProductModal({
         </button>
         <div className="p-6">
           <h2 className="text-lg font-bold mb-4 text-center">
-            {product ? "Editar Produto" : "Criar Produto"}
+            {product ? "Edit Product" : "Create Product"}
           </h2>
           <form>
             <div className="mb-4">
@@ -132,7 +132,7 @@ export default function ProductModal({
                 htmlFor="productName"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                Nome do produto
+                Product Name
               </label>
               <input
                 type="text"
@@ -147,7 +147,7 @@ export default function ProductModal({
                 htmlFor="productDescription"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                Descrição
+                Description
               </label>
               <textarea
                 id="productDescription"
@@ -175,7 +175,7 @@ export default function ProductModal({
                 htmlFor="productPrice"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                Preço
+                Price
               </label>
               <input
                 type="number"
@@ -189,7 +189,7 @@ export default function ProductModal({
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="px-4 py-2 bg-blue-500 text-white rounded flex items-center space-x-2"
+                className="px-4 py-2 bg-blue-600 text-white rounded flex items-center space-x-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -205,7 +205,7 @@ export default function ProductModal({
                     d="M12 4v16m8-8H4"
                   />
                 </svg>
-                <span>{product ? "Atualizar Produto" : "Criar Produto"}</span>
+                <span>{product ? "Update Product" : "Create Product"}</span>
               </button>
             </div>
           </form>
