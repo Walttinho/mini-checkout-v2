@@ -94,7 +94,7 @@ export default function ProductList() {
                 description={product.description}
                 name={product.name}
                 price={product.price}
-                link={`/products/${product.id}`}
+                link={`/checkout/${product.id}`}
                 onDelete={() => handleDelete(product.id)}
                 onEdit={() => {
                   setSelectedProduct(product);
