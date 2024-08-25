@@ -74,11 +74,13 @@ const PixModal: React.FC<PixModalProps> = ({
             value={paymentLink}
             readOnly
             className="w-full text-blue-500 focus:outline-none"
+            aria-label="Pix Payment Link"
           />
         </div>
         <button
           onClick={handleCopy}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full flex justify-center items-center"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full flex justify-center items-center focus:outline-none focus:shadow-outline"
+          aria-label="Copy Payment Link"
         >
           <CopyIcon className="mr-2" /> Copy
         </button>

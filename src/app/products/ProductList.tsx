@@ -72,17 +72,18 @@ export default function ProductList() {
         </div>
       ) : (
         <>
-          <div className="flex items-center space-x-2 mb-4">
-            <h1 className="text-3xl font-bold">Products</h1>
+          <div className="flex items-center space-x-4 mb-6">
+            <h1 className="text-3xl font-bold text-black">Products</h1>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-xl"
+              className="flex items-center space-x-2 px-5 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl"
+              aria-label="Add New Product"
             >
-              <FilePlus2 />
-              <span>New Product</span>
+              <FilePlus2 size={20} />
+              <span className="text-lg">New Product</span>
             </button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -92,8 +93,7 @@ export default function ProductList() {
                 price={product.price}
                 link={`/checkout/${product.id}`}
                 onDelete={() => handleDelete(product.id)}
-                onEdit={() => {handleEdit(product)}}
-                
+                onEdit={() => handleEdit(product)}
               />
             ))}
           </div>

@@ -140,6 +140,7 @@ export default function ProductModal({
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={productName}
                 onChange={handleProductNameChange}
+                aria-label="Product Name"
               />
             </div>
             <div className="mb-4">
@@ -154,6 +155,7 @@ export default function ProductModal({
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={productDescription}
                 onChange={handleProductDescriptionChange}
+                aria-label="Product Description"
               />
             </div>
             <div className="mb-4">
@@ -168,6 +170,7 @@ export default function ProductModal({
                 id="productThumbnail"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 onChange={handleProductThumbnailChange}
+                aria-label="Product Thumbnail"
               />
             </div>
             <div className="mb-4">
@@ -183,13 +186,15 @@ export default function ProductModal({
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={productPrice}
                 onChange={handleProductPriceChange}
+                aria-label="Product Price"
               />
             </div>
             <div className="flex justify-center mt-6">
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="px-4 py-2 bg-blue-600 text-white rounded flex items-center space-x-2"
+                className="px-4 py-2 bg-blue-600 text-white rounded flex items-center space-x-2 hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                aria-label={product ? "Update Product" : "Create Product"}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
