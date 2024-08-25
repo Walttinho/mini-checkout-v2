@@ -54,7 +54,7 @@ export default function Navbar() {
               Produtos
             </a>
             <a
-              href="/vendas"
+              href="/orders"
               className="block py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
             >
               Vendas
