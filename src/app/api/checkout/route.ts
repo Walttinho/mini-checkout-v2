@@ -4,7 +4,6 @@ import { payment } from "@/lib/mercadopago";
 import { z } from "zod";
 
 const checkoutSchema = z.object({
-  productId: z.string().uuid(),
   customerName: z.string().min(1, "Name is required"),
   customerPhone: z.string().min(10, "Phone must have at least 10 characters"),
   customerCPF: z.string().min(11, "CPF must have at least 11 characters"),
@@ -16,7 +15,7 @@ export async function POST(request: Request) {
     await request.json();
 
   try {
-    const checkoutData = checkoutSchema.parse({
+     checkoutSchema.parse({
       productId,
       customerName,
       customerPhone,

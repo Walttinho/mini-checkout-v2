@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PixModal from "./PixModal";
 import Image from "next/image";
 import lock from "../../../../public/images/lock.png";
@@ -24,34 +24,83 @@ export default function CheckoutPage({
   const [isPixModalOpen, setIsPixModalOpen] = useState(false);
   const [orderId, setOrderId] = useState("");
   const [paymentId, setPaymentId] = useState("");
- 
+  const [price, setPrice] = useState<number | null>(null); // State to store the product price
+  const [error, setError] = useState<string | null>(null); // State to store error messages
+
+  // Fetch product details on component mount
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/${params.productId}`);
+        if (data && data.price !== undefined) {
+          setPrice(data.price); // Set the price from the fetched product details
+          setError(null); // Clear any previous errors
+        } else {
+          throw new Error("Product not found or invalid product data.");
+        }
+      } catch (error: any) {
+        if (error.response) {
+          // Server responded with a status code outside the 2xx range
+          if (error.response.status === 404) {
+            setError("Product not found.");
+          } else if (error.response.status === 500) {
+            setError("Server error. Please try again later.");
+          } else {
+            setError("An error occurred while fetching the product details.");
+          }
+        } else if (error.request) {
+          // Request was made but no response received
+          setError("Network error. Please check your connection.");
+        } else {
+          // Something happened in setting up the request
+          setError("An unexpected error occurred.");
+        }
+      }
+    };
+
+    fetchProductDetails();
+  }, [params.productId]);
 
   const handleCheckout = async () => {
-    
-    const response = await axios.post("/api/checkout", {
-      productId: params.productId,
-      customerName,
-      customerPhone,
-      customerCPF,
-      customerEmail,
-    });    
+    try {
+      const response = await axios.post("/api/checkout", {
+        productId: params.productId,
+        customerName,
+        customerPhone,
+        customerCPF,
+        customerEmail,
+      });
 
-    const payment = response.data.payment.point_of_interaction.transaction_data;
+      const payment =
+        response.data.payment.point_of_interaction.transaction_data;
 
-    const qrcodeString = payment.qr_code_base64;
+      const qrcodeString = payment.qr_code_base64;
 
-    setQrcode(qrcodeString); // Set the QR code state
+      setQrcode(qrcodeString); // Set the QR code state
 
-    setPaymentLink(payment.qr_code);
+      setPaymentLink(payment.qr_code);
 
-    setIsPixModalOpen(true); // Open the modal
+      setIsPixModalOpen(true); // Open the modal
 
-    setOrderId(response.data.orderId);
-    setPaymentId(response.data.payment.id);
+      setOrderId(response.data.orderId);
 
-    
+      setPaymentId(response.data.payment.id);
+    } catch (error: any) {
+      if (error.response) {
+        if (error.response.data.error && error.response.data.error.length > 0) {
+          const errorMessage = error.response.data.error[0].message;
+          alert(`Error: ${errorMessage}`);
+        } else {
+          alert("Error: Unknown error occurred in server response");
+        }
+      } else if (error.request) {
+        alert("Error: No response from server");
+      } else {
+        alert("Error: Unknown error occurred");
+      }
+    }
   };
-  
+
   return (
     <div className="flex flex-col md:flex-row justify-between gap-8 p-6">
       <div className="w-full md:w-1/2">
@@ -103,7 +152,13 @@ export default function CheckoutPage({
 
           <div className="mb-4">
             <h3 className="text-xl font-medium mb-2">Price</h3>
-            <p className="text-gray-700 text-2xl">$19.90</p>
+            {error ? (
+              <p className="text-red-600 text-xl">{error}</p>
+            ) : (
+              <p className="text-gray-700 text-2xl">
+                {price !== null ? `$${price.toFixed(2)}` : "Loading..."}
+              </p>
+            )}
           </div>
           <div className="mb-4 flex items-center">
             <Image
@@ -119,6 +174,7 @@ export default function CheckoutPage({
             type="button"
             className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
             onClick={handleCheckout}
+            disabled={price === null || error !== null} // Disable button if price is not loaded or there's an error
           >
             Buy Now
           </button>
